@@ -1,12 +1,12 @@
 import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:voice_pad/data/data_provider.dart';
-import 'package:voice_pad/data/models/category.dart';
+import 'package:voice_pad/data/models/voices_category.dart';
 import 'package:voice_pad/ui/widgets/grid_item.dart';
 import 'package:voice_pad/utils/injector.dart';
 
 class VoiceSelectionPage extends StatelessWidget {
-  final Category category;
+  final VoicesCategory category;
 
   const VoiceSelectionPage({
     required this.category,

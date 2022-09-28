@@ -1,12 +1,12 @@
-import 'package:voice_pad/data/models/category.dart';
 import 'package:voice_pad/data/models/voice_line.dart';
+import 'package:voice_pad/data/models/voices_category.dart';
 
 class DataProvider {
-  late final List<Category> categories;
+  late final List<VoicesCategory> categories;
   late final List<VoiceLine> voices;
 
   DataProvider() {
-    final mafiaIICategory = Category('mafiaII', 'Mafia II');
+    final mafiaIICategory = VoicesCategory('mafiaII', 'Mafia II');
 
     categories = [
       mafiaIICategory,

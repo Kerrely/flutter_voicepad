@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voice_pad/ui/pages/category_selection.dart';
+import 'package:voice_pad/ui/pages/category_selection/category_selection.dart';
 
 class VoicePadApp extends StatelessWidget {
   const VoicePadApp({super.key});
