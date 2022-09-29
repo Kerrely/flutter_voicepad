@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voice_pad/data/data_provider.dart';
+import 'package:voice_pad/data/preset_voices_provider.dart';
 import 'package:voice_pad/ui/pages/voice_selection.dart';
 import 'package:voice_pad/ui/widgets/grid_item.dart';
 import 'package:voice_pad/utils/injector.dart';
@@ -12,7 +12,7 @@ class CategorySelectionPage extends StatefulWidget {
 }
 
 class _CategorySelectionPageState extends State<CategorySelectionPage> {
-  final DataProvider dataProvider = injector();
+  final PresetVoicesProvider dataProvider = injector();
 
   @override
   Widget build(BuildContext context) {
