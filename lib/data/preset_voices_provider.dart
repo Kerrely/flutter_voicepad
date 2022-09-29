@@ -34,7 +34,7 @@ class PresetVoicesProvider {
     }
 
     final List<VoicesCategory> categories = categoryNames
-        .map((e) => VoicesCategory(title: e, category: Uri.encodeFull(e)))
+        .map((e) => VoicesCategory(title: e, identifier: Uri.encodeFull(e)))
         .toList();
 
     return PresetVoicesProvider(categories, voiceLines);
