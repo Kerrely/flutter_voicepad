@@ -19,29 +19,23 @@ class VoiceSelectionPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 10,
-          left: 10,
-          right: 10,
-        ),
-        child: GridView.count(
-          crossAxisCount: 4,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          children: [
-            for (final voice in dataProvider.voices
-                .where((element) => element.category == category.id))
-              GridItem(
-                title: voice.title,
-                onTap: () {
-                  Audio.load('assets/voices/${voice.file}')
-                    ..play()
-                    ..dispose();
-                },
-              )
-          ],
-        ),
+      body: GridView.count(
+        crossAxisCount: MediaQuery.of(context).size.width > 500 ? 4 : 3,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        padding: const EdgeInsets.all(10),
+        children: [
+          for (final voice in dataProvider.voices
+              .where((element) => element.category == category.identifier))
+            GridItem(
+              title: voice.title.replaceAll('.mp4', ''),
+              onTap: () {
+                Audio.load('assets/voices/${voice.category}/${voice.file}')
+                  ..play()
+                  ..dispose();
+              },
+            )
+        ],
       ),
     );
   }
