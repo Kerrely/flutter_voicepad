@@ -1,6 +1,9 @@
 class VoicesCategory {
-  final String id;
   final String title;
+  final String category;
 
-  VoicesCategory(this.id, this.title);
+  VoicesCategory({
+    required this.title,
+    required this.category,
+  });
 }

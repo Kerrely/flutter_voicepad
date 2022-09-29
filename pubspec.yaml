@@ -33,7 +33,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/voices/mafiaII/
+    - assets/voices/Mafia II/
 
   # fonts:
   #   - family: Schyler
