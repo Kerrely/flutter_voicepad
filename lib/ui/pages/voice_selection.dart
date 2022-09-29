@@ -20,7 +20,7 @@ class VoiceSelectionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: GridView.count(
-        crossAxisCount: MediaQuery.of(context).size.width > 500 ? 4 : 3,
+        crossAxisCount: MediaQuery.of(context).size.width > 500 ? 5 : 3,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         padding: const EdgeInsets.all(10),
