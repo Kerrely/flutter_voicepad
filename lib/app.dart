@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voice_pad/ui/pages/category_selection/category_selection.dart';
+import 'package:voice_pad/ui/pages/startup_page.dart';
 
 class VoicePadApp extends StatelessWidget {
   const VoicePadApp({super.key});
@@ -11,7 +11,7 @@ class VoicePadApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CategorySelectionPage(),
+      home: const StartupPage(),
     );
   }
 }
