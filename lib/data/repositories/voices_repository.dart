@@ -4,5 +4,5 @@ import 'package:voice_pad/data/models/voices_category.dart';
 abstract class VoicesRepository {
   Future<List<VoicesCategory>> getCategories();
 
-  Future<List<VoiceLine>> getVoiceLinesForCategory();
+  Future<List<VoiceLine>> getVoiceLinesForCategory(String category);
 }
