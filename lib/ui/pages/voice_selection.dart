@@ -1,9 +1,9 @@
 import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
-import 'package:voice_pad/data/preset_voices_provider.dart';
+import 'package:voice_pad/data/providers/preset_voices_provider.dart';
+import 'package:voice_pad/data/repositories/voices_repository.dart';
 import 'package:voice_pad/ui/widgets/grid_item.dart';
-import 'package:voice_pad/utils/injector.dart';
 
 class VoiceSelectionPage extends StatelessWidget {
   final VoicesCategory category;
@@ -15,8 +15,6 @@ class VoiceSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PresetVoicesProvider dataProvider = injector();
-
     return Scaffold(
       appBar: AppBar(),
       body: GridView.count(
@@ -25,8 +23,9 @@ class VoiceSelectionPage extends StatelessWidget {
         mainAxisSpacing: 10,
         padding: const EdgeInsets.all(10),
         children: [
-          for (final voice in dataProvider.voices
-              .where((element) => element.category == category.identifier))
+          for (final voice in repository
+              .getVoiceLinesForCategory(categoryIdentifier)
+              .where((element) => element.category == categoryIdentifier))
             GridItem(
               title: voice.title.replaceAll('.mp4', ''),
               onTap: () {

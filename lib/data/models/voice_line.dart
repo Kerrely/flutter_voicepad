@@ -4,10 +4,10 @@ class VoiceLine {
   final String file;
   final String title;
 
-  VoiceLine(
-    this.id,
-    this.category,
-    this.file,
-    this.title,
-  );
+  VoiceLine({
+    required this.id,
+    required this.category,
+    required this.file,
+    required this.title,
+  });
 }
