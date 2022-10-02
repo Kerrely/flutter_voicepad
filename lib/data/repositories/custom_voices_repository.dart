@@ -10,7 +10,7 @@ class CustomVoicesRepository implements VoicesRepository {
   }
 
   @override
-  Future<List<VoiceLine>> getVoiceLinesForCategory(String category) {
+  Future<List<VoiceLine>> getVoiceLinesByCategoryIdentifier(String category) {
     // TODO: implement getVoiceLinesForCategory
     throw UnimplementedError();
   }

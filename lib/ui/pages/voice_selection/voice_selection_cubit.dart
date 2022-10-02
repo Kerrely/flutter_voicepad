@@ -7,11 +7,11 @@ import 'package:voice_pad/data/repositories/voices_repository.dart';
 import 'package:voice_pad/utils/injector.dart';
 import 'package:voice_pad/utils/page_state.dart';
 
-class VoiceSelectionCubit extends Cubit<PageState<List<VoiceLine>?>> {
-  VoiceSelectionCubit(): super(PageState(data: null));
+class VoiceSelectionCubit extends Cubit<PageState<List<VoiceLine>>> {
+  VoiceSelectionCubit() : super(PageState(data: null));
 
-  void getVoicesForCategory(VoicesCategory category) {
-    emit(state.copyWith)
+  Future<void> getVoicesForCategory(VoicesCategory category) async {
+    emit(state.copyWith(isLoading: true));
 
     late final VoicesRepository repo;
     switch (category.type) {
@@ -22,6 +22,14 @@ class VoiceSelectionCubit extends Cubit<PageState<List<VoiceLine>?>> {
         repo = injector<PresetVoicesRepository>();
         break;
     }
-  }
 
+    final voices = await repo.getVoiceLinesByCategoryIdentifier(
+      category.identifier,
+    );
+
+    emit(state.copyWith(
+      isLoading: false,
+      data: voices,
+    ));
+  }
 }
