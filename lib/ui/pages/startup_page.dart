@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voice_pad/data/repositories/preset_voices_repository.dart';
-import 'package:voice_pad/ui/pages/category_selection.dart';
+import 'package:voice_pad/ui/pages/category_selection/category_selection_page.dart';
 import 'package:voice_pad/utils/injector.dart';
 
 class StartupPage extends StatefulWidget {
@@ -15,7 +15,7 @@ class _StartupPageState extends State<StartupPage> {
   void initState() {
     super.initState();
     getPresetAssets().then(
-      (_) => Navigator.of(context).push(
+      (_) => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => const CategorySelectionPage(),
         ),
