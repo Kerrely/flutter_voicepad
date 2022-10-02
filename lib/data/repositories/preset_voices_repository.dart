@@ -65,7 +65,7 @@ class PresetVoicesRepository implements VoicesRepository {
   }
 
   @override
-  Future<List<VoiceLine>> getVoiceLinesForCategory(String category) {
+  Future<List<VoiceLine>> getVoiceLinesByCategoryIdentifier(String category) {
     return Future.value(
       _voices.where((element) => element.category == category).toList(),
     );

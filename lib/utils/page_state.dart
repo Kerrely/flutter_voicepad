@@ -1,7 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-abstract class PageState<T> {
-  final T data;
+class PageState<T> {
+  final T? data;
   final bool isLoading;
   final bool fatalErrorOccurred;
 
@@ -11,11 +9,14 @@ abstract class PageState<T> {
     this.fatalErrorOccurred = false,
   });
 
-  PageState copyWith(
-      {
-        T data,
-        this.isLoading = false,
-        this.fatalErrorOccurred = false,
-      }
-      )
+  PageState<T> copyWith({
+    T? data,
+    bool? isLoading,
+    bool? fatalErrorOccurred,
+  }) =>
+      PageState(
+        data: data,
+        isLoading: isLoading ?? this.isLoading,
+        fatalErrorOccurred: fatalErrorOccurred ?? this.fatalErrorOccurred,
+      );
 }
