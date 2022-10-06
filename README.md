@@ -1,5 +1,7 @@
 # Voice Pad
 
+Let's bring some fun when the right moment comes!
+
 Roadmap: https://trello.com/b/jUPexYk7/voice-pad
 
 Contributions are welcome!
