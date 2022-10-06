@@ -12,12 +12,12 @@ The app does not support adding voicelines directly via UI... __YET__! But if yo
 
   1. Create a new folder named by the source game or movie (the voice lines are coming from) under the `assets` directory. The name should be exactly the same as the original game/movie. Example:
   ```
-  root/assets/Pirates of the Caribbean
+  root/assets/voices/Pirates of the Caribbean
   ```
   
   2. Add any voice lines you have recorded/created into this folder. Naming of the files should either copy the sentence of the recording or describe as much as possible what is being said in the voice line. The final structure should look like the following:
   ```
-  root/assets/Pirates of the Caribbean/Remember the day you have nearly captured captain Jack Sparrow.mp3
+  root/assets/voices/Pirates of the Caribbean/Remember the day you have nearly captured captain Jack Sparrow.mp3
   ```
   
   That's it! The app will do the rest now. If you wish to share your creation with others, feel free to create a `Pull request` with added files. You can now either build the app yourself or wait until the merged changes will be available in the new release.
