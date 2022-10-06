@@ -20,7 +20,7 @@ The app does not support adding voicelines directly via UI... __YET__! But if yo
   root/assets/Pirates of the Caribbean/Remember the day you have nearly captured captain Jack Sparrow.mp3
   ```
   
-  That's it! If you wish to share your creation with others, feel free to create a `Pull request` with added files. You can now either build the app yourself or wait until the merged changes will be available in the new release.
+  That's it! The app will do the rest now. If you wish to share your creation with others, feel free to create a `Pull request` with added files. You can now either build the app yourself or wait until the merged changes will be available in the new release.
 
 Inadequate recordings (like targeted harm or harassment) may be rejected!
 
