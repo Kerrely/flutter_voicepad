@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
+import 'package:voice_pad/ui/bloc/full_text_search/full_text_search_cubit.dart';
 import 'package:voice_pad/ui/pages/voice_selection/voice_selection_cubit.dart';
 import 'package:voice_pad/ui/widgets/grid_item.dart';
 
@@ -14,11 +15,60 @@ class VoiceSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          VoiceSelectionCubit()..getVoicesForCategory(category),
+    final searchFocusNode = FocusNode();
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              VoiceSelectionCubit()..getVoicesForCategory(category),
+        ),
+        BlocProvider(create: (context) => FullTextSearchCubit()),
+      ],
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(56),
+          child: BlocBuilder<FullTextSearchCubit, FullTextSearchState>(
+            builder: (BuildContext context, state) {
+              return AppBar(
+                title: state.isSearchEnabled
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: TextField(
+                          focusNode: searchFocusNode,
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
+                          onChanged: (value) => context
+                              .read<FullTextSearchCubit>()
+                              .searchFor(value),
+                          onSubmitted: (value) => context
+                              .read<FullTextSearchCubit>()
+                              .searchFor(value),
+                        ),
+                      )
+                    : Text(category.title),
+                leading: IconButton(
+                  onPressed: state.isSearchEnabled
+                      ? () => context.read<FullTextSearchCubit>().toggleSearch()
+                      : () => Navigator.of(context).pop(),
+                  icon: Icon(
+                    state.isSearchEnabled ? Icons.close : Icons.arrow_back,
+                  ),
+                ),
+                actions: [
+                  if (!state.isSearchEnabled)
+                    IconButton(
+                      onPressed: () {
+                        context.read<FullTextSearchCubit>().toggleSearch();
+                        searchFocusNode.requestFocus();
+                      },
+                      icon: const Icon(Icons.search_rounded),
+                    )
+                ],
+              );
+            },
+          ),
+        ),
         body: BlocBuilder<VoiceSelectionCubit, VoiceSelectionState>(
           builder: (context, state) {
             if (state.isLoading) {

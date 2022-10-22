@@ -64,11 +64,9 @@ class VoiceSelectionCubit extends Cubit<VoiceSelectionState> {
     required String file,
   }) {
     emit(state.copyWith(isPlaying: true));
-    final audio = Audio.load(
-      'assets/voices/$category/$file',
-      onComplete: () => emit(state.copyWith(isPlaying: false)),
-    );
-    audio.play();
-    audio.dispose();
+    Audio.load('assets/voices/$category/$file',
+        onComplete: () => emit(state.copyWith(isPlaying: false)))
+      ..play()
+      ..dispose();
   }
 }
