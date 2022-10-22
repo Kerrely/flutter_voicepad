@@ -1,22 +1,22 @@
 class PageState<T> {
   final T? data;
   final bool isLoading;
-  final bool fatalErrorOccurred;
+  final bool errorOccurred;
 
   PageState({
     required this.data,
     this.isLoading = false,
-    this.fatalErrorOccurred = false,
+    this.errorOccurred = false,
   });
 
   PageState<T> copyWith({
     T? data,
     bool? isLoading,
-    bool? fatalErrorOccurred,
+    bool? errorOccurred,
   }) =>
       PageState(
         data: data,
         isLoading: isLoading ?? this.isLoading,
-        fatalErrorOccurred: fatalErrorOccurred ?? this.fatalErrorOccurred,
+        errorOccurred: errorOccurred ?? this.errorOccurred,
       );
 }

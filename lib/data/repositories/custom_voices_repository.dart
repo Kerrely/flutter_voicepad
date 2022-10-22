@@ -1,3 +1,4 @@
+import 'package:voice_pad/data/data_result.dart';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
@@ -7,7 +8,7 @@ import 'package:voice_pad/data/repositories/voices_repository.dart';
 
 class CustomVoicesRepository implements VoicesRepository {
   @override
-  Future<List<VoicesCategory>> getCategories() async {
+  Future<DataResult<List<VoicesCategory>>> getCategories() async {
     final Directory appDocumentsDirectory =
         await getApplicationDocumentsDirectory();
     final Directory voicesCategoriesDirectory =
@@ -23,7 +24,9 @@ class CustomVoicesRepository implements VoicesRepository {
   }
 
   @override
-  Future<List<VoiceLine>> getVoiceLinesByCategoryIdentifier(String category) {
+  Future<DataResult<List<VoiceLine>>> getVoiceLinesByCategoryIdentifier(
+    String category,
+  ) {
     // TODO: implement getVoiceLinesForCategory
     throw UnimplementedError();
   }
