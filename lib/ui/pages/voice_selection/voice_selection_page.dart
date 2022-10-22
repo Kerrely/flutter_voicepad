@@ -1,4 +1,3 @@
-import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voice_pad/data/models/voice_line.dart';
@@ -27,7 +26,7 @@ class VoiceSelectionPage extends StatelessWidget {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (state.fatalErrorOccurred) {
+            if (state.errorOccurred) {
               return const Center(
                 child: Text('Oops!'),
               );
@@ -41,12 +40,11 @@ class VoiceSelectionPage extends StatelessWidget {
                 for (final voice in state.data ?? [])
                   GridItem(
                     title: voice.title.replaceAll('.mp4', ''),
-                    onTap: () {
-                      Audio.load(
-                          'assets/voices/${voice.category}/${voice.file}')
-                        ..play()
-                        ..dispose();
-                    },
+                    onTap: () =>
+                        context.read<VoiceSelectionCubit>().playVoiceLine(
+                              category: voice.category,
+                              file: voice.file,
+                            ),
                   )
               ],
             );
