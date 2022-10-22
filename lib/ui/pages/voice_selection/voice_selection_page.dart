@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:voice_pad/data/models/voice_line.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
 import 'package:voice_pad/ui/pages/voice_selection/voice_selection_cubit.dart';
 import 'package:voice_pad/ui/widgets/grid_item.dart';
-import 'package:voice_pad/utils/page_state.dart';
 
 class VoiceSelectionPage extends StatelessWidget {
   final VoicesCategory category;
@@ -21,7 +19,7 @@ class VoiceSelectionPage extends StatelessWidget {
           VoiceSelectionCubit()..getVoicesForCategory(category),
       child: Scaffold(
         appBar: AppBar(),
-        body: BlocBuilder<VoiceSelectionCubit, PageState<List<VoiceLine>>>(
+        body: BlocBuilder<VoiceSelectionCubit, VoiceSelectionState>(
           builder: (context, state) {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -40,6 +38,7 @@ class VoiceSelectionPage extends StatelessWidget {
                 for (final voice in state.data ?? [])
                   GridItem(
                     title: voice.title.replaceAll('.mp4', ''),
+                    isEnabled: !state.isPlaying,
                     onTap: () =>
                         context.read<VoiceSelectionCubit>().playVoiceLine(
                               category: voice.category,

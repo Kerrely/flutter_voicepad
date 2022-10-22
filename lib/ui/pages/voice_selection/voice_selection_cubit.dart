@@ -59,14 +59,16 @@ class VoiceSelectionCubit extends Cubit<VoiceSelectionState> {
         errorOccurred: voicesResult.hasError));
   }
 
-  playVoiceLine({
+  void playVoiceLine({
     required String category,
     required String file,
   }) {
     emit(state.copyWith(isPlaying: true));
-    Audio.load('assets/voices/$category/$file')
-      ..play()
-      ..dispose();
-    emit(state.copyWith(isPlaying: false));
+    final audio = Audio.load(
+      'assets/voices/$category/$file',
+      onComplete: () => emit(state.copyWith(isPlaying: false)),
+    );
+    audio.play();
+    audio.dispose();
   }
 }
