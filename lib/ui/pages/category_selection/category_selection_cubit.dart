@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
 import 'package:voice_pad/data/repositories/preset_voices_repository.dart';
 import 'package:voice_pad/utils/injector.dart';
@@ -15,11 +15,17 @@ class CategorySelectionCubit extends Cubit<PageState<List<VoicesCategory>>> {
 
     final categories = List<VoicesCategory>.empty(growable: true);
 
-    final presetCategories = await presetRepo.getCategories();
-    categories.addAll(presetCategories);
+    final presetCategoriesResult = await presetRepo.getCategories();
+    if (presetCategoriesResult.hasData) {
+      categories.addAll(presetCategoriesResult.data!);
+    }
     // final customCategories = await customRepo.getCategories();
     // categories.addAll(customCategories);
 
-    emit(state.copyWith(isLoading: false, data: categories));
+    emit(state.copyWith(
+      isLoading: false,
+      data: categories,
+      errorOccurred: presetCategoriesResult.hasError,
+    ));
   }
 }

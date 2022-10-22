@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:voice_pad/data/data_result.dart';
 import 'package:voice_pad/data/models/voice_line.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
 import 'package:voice_pad/data/repositories/voices_repository.dart';
@@ -60,14 +61,23 @@ class PresetVoicesRepository implements VoicesRepository {
   }
 
   @override
-  Future<List<VoicesCategory>> getCategories() {
-    return Future.value(_categories);
+  Future<DataResult<List<VoicesCategory>>> getCategories() {
+    return Future.value(DataResult(data: _categories));
   }
 
   @override
-  Future<List<VoiceLine>> getVoiceLinesByCategoryIdentifier(String category) {
-    return Future.value(
-      _voices.where((element) => element.category == category).toList(),
-    );
+  Future<DataResult<List<VoiceLine>>> getVoiceLinesByCategoryIdentifier(
+    String category,
+  ) {
+    try {
+      final voicesForCategory = _voices
+          .where(
+            (element) => element.category == category,
+          )
+          .toList();
+      return Future.value(DataResult(data: voicesForCategory));
+    } on Exception catch (e) {
+      return Future.value(DataResult(error: e));
+    }
   }
 }

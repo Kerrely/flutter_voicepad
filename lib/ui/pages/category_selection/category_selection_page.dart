@@ -26,7 +26,7 @@ class CategorySelectionPage extends StatelessWidget {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (state.fatalErrorOccurred) {
+            if (state.errorOccurred) {
               return const Center(
                 child: Text('Oops!'),
               );
