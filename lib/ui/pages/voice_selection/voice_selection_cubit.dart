@@ -31,6 +31,20 @@ class VoiceSelectionState extends PageState<List<VoiceLine>> {
         errorOccurred: errorOccurred ?? this.errorOccurred,
         isPlaying: isPlaying ?? this.isPlaying,
       );
+
+  List<VoiceLine>? filterDataBySearch(String? value) {
+    if (value == null || value.isEmpty) {
+      return data;
+    } else {
+      return data
+              ?.where((element) => element.title
+                  .toLowerCase()
+                  .trim()
+                  .contains(value.toLowerCase().trim()))
+              .toList() ??
+          [];
+    }
+  }
 }
 
 class VoiceSelectionCubit extends Cubit<VoiceSelectionState> {

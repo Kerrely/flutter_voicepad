@@ -1,7 +1,7 @@
-import 'package:voice_pad/data/data_result.dart';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:voice_pad/data/data_result.dart';
 import 'package:voice_pad/data/models/voice_line.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
 import 'package:voice_pad/data/repositories/voices_repository.dart';
@@ -20,7 +20,7 @@ class CustomVoicesRepository implements VoicesRepository {
     // Gets subdirectories
     final categories = voicesCategoriesDirectory.listSync();
 
-    return filePath;
+    return DataResult();
   }
 
   @override
