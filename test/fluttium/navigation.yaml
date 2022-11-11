@@ -1,0 +1,6 @@
+description: It is possible to enter a category and see its voice lines
+---
+- expectVisible: 'Mafia II'
+- tapOn: 'Mafia II'
+- expectVisible: 'Ale no jo'
+- tapOn: 'Ale no jo'
