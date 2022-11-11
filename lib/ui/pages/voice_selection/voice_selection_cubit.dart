@@ -3,7 +3,6 @@ import 'package:diacritic/diacritic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voice_pad/data/models/voice_line.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
-import 'package:voice_pad/data/repositories/custom_voices_repository.dart';
 import 'package:voice_pad/data/repositories/preset_voices_repository.dart';
 import 'package:voice_pad/data/repositories/voices_repository.dart';
 import 'package:voice_pad/utils/injector.dart';
@@ -55,10 +54,11 @@ class VoiceSelectionCubit extends Cubit<VoiceSelectionState> {
 
     late final VoicesRepository repo;
     switch (category.type) {
-      case VoicesCategoryType.custom:
-        repo = injector<CustomVoicesRepository>();
-        break;
+      // case VoicesCategoryType.custom:
+      //   repo = injector<CustomVoicesRepository>();
+      //   break;
       case VoicesCategoryType.preset:
+      default:
         repo = injector<PresetVoicesRepository>();
         break;
     }
