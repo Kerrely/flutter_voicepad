@@ -15,12 +15,14 @@ class CategorySelectionCubit extends Cubit<PageState<List<VoicesCategory>>> {
 
     final categories = List<VoicesCategory>.empty(growable: true);
 
+    // final customCategoriesResult = await customRepo.getCategories();
     final presetCategoriesResult = await presetRepo.getCategories();
     if (presetCategoriesResult.hasData) {
       categories.addAll(presetCategoriesResult.data!);
     }
-    // final customCategories = await customRepo.getCategories();
-    // categories.addAll(customCategories);
+    // if (customCategoriesResult.hasData) {
+    //   categories.addAll(customCategoriesResult.data!);
+    // }
 
     emit(state.copyWith(
       isLoading: false,

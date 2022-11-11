@@ -1,4 +1,5 @@
 import 'package:audiofileplayer/audiofileplayer.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voice_pad/data/models/voice_line.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
@@ -31,6 +32,19 @@ class VoiceSelectionState extends PageState<List<VoiceLine>> {
         errorOccurred: errorOccurred ?? this.errorOccurred,
         isPlaying: isPlaying ?? this.isPlaying,
       );
+
+  List<VoiceLine>? filterDataBySearch(String? value) {
+    if (value == null || value.isEmpty) {
+      return data;
+    } else {
+      return data
+              ?.where((element) => removeDiacritics(
+                      element.title.toLowerCase().trim().replaceAll(' ', ''))
+                  .contains(value.toLowerCase().trim().replaceAll(' ', '')))
+              .toList() ??
+          [];
+    }
+  }
 }
 
 class VoiceSelectionCubit extends Cubit<VoiceSelectionState> {

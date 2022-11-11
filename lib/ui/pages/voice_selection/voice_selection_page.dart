@@ -22,13 +22,18 @@ class VoiceSelectionPage extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               VoiceSelectionCubit()..getVoicesForCategory(category),
+          lazy: false,
         ),
-        BlocProvider(create: (context) => FullTextSearchCubit()),
+        BlocProvider(
+          create: (context) => FullTextSearchCubit(),
+        ),
       ],
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(56),
           child: BlocBuilder<FullTextSearchCubit, FullTextSearchState>(
+            buildWhen: (previous, next) =>
+                previous.isSearchEnabled != next.isSearchEnabled,
             builder: (BuildContext context, state) {
               return AppBar(
                 title: state.isSearchEnabled
@@ -69,33 +74,40 @@ class VoiceSelectionPage extends StatelessWidget {
             },
           ),
         ),
-        body: BlocBuilder<VoiceSelectionCubit, VoiceSelectionState>(
-          builder: (context, state) {
-            if (state.isLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (state.errorOccurred) {
-              return const Center(
-                child: Text('Oops!'),
-              );
-            }
-            return GridView.count(
-              crossAxisCount: MediaQuery.of(context).size.width > 500 ? 5 : 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              padding: const EdgeInsets.all(10),
-              children: [
-                for (final voice in state.data ?? [])
-                  GridItem(
-                    title: voice.title.replaceAll('.mp4', ''),
-                    isEnabled: !state.isPlaying,
-                    onTap: () =>
-                        context.read<VoiceSelectionCubit>().playVoiceLine(
-                              category: voice.category,
-                              file: voice.file,
-                            ),
-                  )
-              ],
+        body: BlocBuilder<FullTextSearchCubit, FullTextSearchState>(
+          builder: (context, searchState) {
+            return BlocBuilder<VoiceSelectionCubit, VoiceSelectionState>(
+              builder: (context, voiceSelectionState) {
+                if (voiceSelectionState.isLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (voiceSelectionState.errorOccurred) {
+                  return const Center(
+                    child: Text('Oops!'),
+                  );
+                }
+                return GridView.count(
+                  crossAxisCount:
+                      MediaQuery.of(context).size.width > 500 ? 5 : 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  padding: const EdgeInsets.all(10),
+                  children: [
+                    for (final voice in voiceSelectionState
+                            .filterDataBySearch(searchState.searchValue) ??
+                        [])
+                      GridItem(
+                        title: voice.title.replaceAll('.mp4', ''),
+                        isEnabled: !voiceSelectionState.isPlaying,
+                        onTap: () =>
+                            context.read<VoiceSelectionCubit>().playVoiceLine(
+                                  category: voice.category,
+                                  file: voice.file,
+                                ),
+                      )
+                  ],
+                );
+              },
             );
           },
         ),
