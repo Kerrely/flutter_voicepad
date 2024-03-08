@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class GridItem extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
+  final bool isEnabled;
 
   const GridItem({
     required this.title,
     required this.onTap,
+    this.isEnabled = true,
     Key? key,
   }) : super(key: key);
 
@@ -23,6 +25,7 @@ class GridItem extends StatelessWidget {
       elevation: 3,
       child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(15),
         child: GridTile(
           child: Padding(
             padding: const EdgeInsets.all(8.0),

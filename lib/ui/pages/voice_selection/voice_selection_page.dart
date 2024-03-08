@@ -7,7 +7,7 @@ import 'package:voice_pad/ui/pages/voice_selection/voice_selection_cubit.dart';
 import 'package:voice_pad/ui/widgets/grid_item.dart';
 import 'package:voice_pad/utils/page_state.dart';
 
-class VoiceSelectionPage extends StatelessWidget {
+class VoiceSelectionPage extends StatefulWidget {
   final VoicesCategory category;
 
   const VoiceSelectionPage({
@@ -16,10 +16,16 @@ class VoiceSelectionPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<VoiceSelectionPage> createState() => _VoiceSelectionPageState();
+}
+
+class _VoiceSelectionPageState extends State<VoiceSelectionPage> {
+  bool isPlaying = false;
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          VoiceSelectionCubit()..getVoicesForCategory(category),
+      create: (context) => VoiceSelectionCubit()..getVoicesForCategory(widget.category),
       child: Scaffold(
         appBar: AppBar(),
         body: BlocBuilder<VoiceSelectionCubit, PageState<List<VoiceLine>>>(
@@ -38,14 +44,22 @@ class VoiceSelectionPage extends StatelessWidget {
               mainAxisSpacing: 10,
               padding: const EdgeInsets.all(10),
               children: [
-                for (final voice in state.data ?? [])
+                for (final VoiceLine voice in state.data ?? [])
                   GridItem(
-                    title: voice.title.replaceAll('.mp4', ''),
+                    title: voice.title.replaceAll(RegExp(r'\.mp4|\.mp3'), ''),
                     onTap: () {
-                      Audio.load(
-                          'assets/voices/${voice.category}/${voice.file}')
+                      setState(() {
+                        isPlaying = true;
+                      });
+                      Audio.load('assets/voices/${voice.category}/${voice.file}')
                         ..play()
-                        ..dispose();
+                        ..dispose().then(
+                          (value) => setState(
+                            () {
+                              isPlaying = false;
+                            },
+                          ),
+                        );
                     },
                   )
               ],

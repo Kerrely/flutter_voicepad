@@ -27,16 +27,14 @@ class PresetVoicesRepository implements VoicesRepository {
   factory PresetVoicesRepository.fromManifest(String manifest) {
     final assetMap = jsonDecode(manifest);
 
-    final voiceAssets = assetMap.keys
-        .where((String key) => key.startsWith('assets/voices'))
-        .toList();
+    final voiceAssets = assetMap.keys.where((String key) => key.startsWith('assets/voices')).toList();
 
     final List<VoiceLine> voiceLines = List<VoiceLine>.empty(growable: true);
     final HashSet<String> categoryNames = HashSet();
 
     for (int i = 0; i < voiceAssets.length; i++) {
       // Substring so it returns only category/voiceline.type
-      final decodedAsset = Uri.decodeFull(voiceAssets[i]).substring(14);
+      final decodedAsset = voiceAssets[i].substring(14);
       final voicePair = decodedAsset.split('/');
 
       categoryNames.add(voicePair.first);

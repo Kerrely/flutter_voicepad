@@ -20,8 +20,7 @@ class CategorySelectionPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Vojs pet'),
         ),
-        body: BlocBuilder<CategorySelectionCubit,
-            PageState<List<VoicesCategory>>>(
+        body: BlocBuilder<CategorySelectionCubit, PageState<List<VoicesCategory>>>(
           builder: (context, state) {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -36,7 +35,7 @@ class CategorySelectionPage extends StatelessWidget {
               controller: _scrollController,
               shrinkWrap: true,
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   'PRESETS',
                   textAlign: TextAlign.center,
@@ -50,11 +49,8 @@ class CategorySelectionPage extends StatelessWidget {
                   mainAxisSpacing: 10,
                   padding: const EdgeInsets.all(10),
                   children: [
-                    for (final category in state.data
-                            ?.where((element) =>
-                                element.type == VoicesCategoryType.preset)
-                            .toList() ??
-                        [])
+                    for (final category
+                        in state.data?.where((element) => element.type == VoicesCategoryType.preset).toList() ?? [])
                       GridItem(
                         title: category.title,
                         onTap: () {
