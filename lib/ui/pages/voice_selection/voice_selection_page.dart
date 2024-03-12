@@ -5,6 +5,7 @@ import 'package:voice_pad/data/models/voice_line.dart';
 import 'package:voice_pad/data/models/voices_category.dart';
 import 'package:voice_pad/ui/pages/voice_selection/voice_selection_cubit.dart';
 import 'package:voice_pad/ui/widgets/grid_item.dart';
+import 'package:voice_pad/utils/extensions/capitalize.dart';
 import 'package:voice_pad/utils/page_state.dart';
 
 class VoiceSelectionPage extends StatefulWidget {
@@ -46,7 +47,9 @@ class _VoiceSelectionPageState extends State<VoiceSelectionPage> {
               children: [
                 for (final VoiceLine voice in state.data ?? [])
                   GridItem(
-                    title: voice.title.replaceAll(RegExp(r'\.mp4|\.mp3'), ''),
+                    title: voice.title.replaceAll(RegExp(r'\.mp4|\.mp3'), '')
+                        .replaceAll('_', ' ')
+                        .capitalize(),
                     onTap: () {
                       setState(() {
                         isPlaying = true;
