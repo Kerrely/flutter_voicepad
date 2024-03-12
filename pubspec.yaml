@@ -36,6 +36,7 @@ flutter:
   assets:
     - assets/voices/Mafia II/
     - assets/voices/Hans/
+    - assets/voices/Hans V2/
 
   # fonts:
   #   - family: Schyler
