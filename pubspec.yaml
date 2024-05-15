@@ -37,6 +37,7 @@ flutter:
     - assets/voices/Mafia II/
     - assets/voices/Hans/
     - assets/voices/Hans V2/
+    - assets/voices/Warcraft - Orcs/
 
   # fonts:
   #   - family: Schyler
